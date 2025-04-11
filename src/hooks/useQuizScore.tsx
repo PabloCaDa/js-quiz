@@ -6,11 +6,15 @@ export const useQuizScore = () => {
   let incorrectAnswers = 0;
   let correctAnswers = 0;
 
-  questions.forEach((question) => {
-    const { userSelectedAnswer, correctAnswer } = question;
+  questions.forEach(({ userSelectedAnswer, correctAnswer }) => {
+    const isAnswered =
+      userSelectedAnswer !== undefined && userSelectedAnswer !== null;
 
-    if (userSelectedAnswer === correctAnswer) correctAnswers++;
-    if (userSelectedAnswer !== correctAnswer) incorrectAnswers++;
+    if (userSelectedAnswer === correctAnswer) {
+      correctAnswers++;
+    } else if (isAnswered) {
+      incorrectAnswers++;
+    }
   });
 
   return {
